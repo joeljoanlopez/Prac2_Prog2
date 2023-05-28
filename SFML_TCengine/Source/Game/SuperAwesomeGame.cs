@@ -34,7 +34,7 @@ namespace TCGame
 
             animatedSpriteComponent.Center();
             mainCharacterActor.AddComponent<BoxCollisionComponent>(animatedSpriteComponent.GetGlobalBounds(), ECollisionLayers.Player);
-         
+
             Vector2f planeForward = new Vector2f(1.0f, 0.0f);
             List<ECollisionLayers> enemyLayers = new List<ECollisionLayers>();
             enemyLayers.Add(ECollisionLayers.Enemy);
@@ -49,7 +49,7 @@ namespace TCGame
 
         }
 
-       
+
         private void CreateTanksSpawner()
         {
             Actor tanksSpawner = new Actor("Tank Spawner");
@@ -58,8 +58,8 @@ namespace TCGame
             // TODO (5.1): Fix the spawn position for the tanks
             //    - They should spawn on the right side of the window
 
-            spawnerComponent.m_MinPosition = new Vector2f(0, 0);
-            spawnerComponent.m_MaxPosition = new Vector2f(10, 10);
+            spawnerComponent.m_MinPosition = new Vector2f(0, -100);
+            spawnerComponent.m_MaxPosition = new Vector2f(TecnoCampusEngine.Get.ViewportSize.X, -100);
             spawnerComponent.m_MinTime = 0.5f;
             spawnerComponent.m_MaxTime = 5f;
             spawnerComponent.Reset();
@@ -78,6 +78,10 @@ namespace TCGame
                 // TODO (5.2): Add the Missing components to the Tank Prefab
                 //   - ForwardMovementComponent
                 //   - CannonComponent (remember to use the correct texture and enable Autofire)
+                tankPrefab.AddComponent<ForwardMovementComponent>();
+                CannonComponent _cannonComponent = tankPrefab.AddComponent<CannonComponent>(tankEnemyLayers);
+                _cannonComponent.AutomaticFire = true;
+                _cannonComponent.BulletTextureName = "Data/Textures/Bullets/TankBullet.png";
 
                 tankPrefab.AddComponent<OutOfWindowDestructionComponent>();
                 tankPrefab.AddComponent<BoxCollisionComponent>(spriteComponent.GetGlobalbounds(), ECollisionLayers.Enemy);
@@ -89,10 +93,10 @@ namespace TCGame
             TecnoCampusEngine.Get.Scene.AddActor(tanksSpawner);
         }
 
-        
+
 
         private void CreateBackground()
-        { 
+        {
             Actor backgroundActor = new Actor("Background");
 
             SpriteComponent spriteComponent = backgroundActor.AddComponent<SpriteComponent>("Data/Textures/Background.jpg");

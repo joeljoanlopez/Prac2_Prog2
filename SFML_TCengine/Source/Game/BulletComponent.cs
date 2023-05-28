@@ -44,7 +44,8 @@ namespace TCGame
                     if (IsActorInRange(collisionLayerComponent.Owner))
                     {
                         // TODO (6.2): Destroy both actors, the bullet actor and the collision layer actor
-                        
+                        TecnoCampusEngine.Get.Scene.RemoveActor(Owner);
+                        TecnoCampusEngine.Get.Scene.RemoveActor(collisionLayerComponent.Owner);
                     }
                 }
             }
@@ -54,9 +55,12 @@ namespace TCGame
         {
 
             // TODO (6.1): Implement this method. It returns true if this actor is touching the _actor passed by parameter
+            BoxCollisionComponent _thisColComponent = Owner.GetComponent<BoxCollisionComponent>();
+            BoxCollisionComponent _otherColComponent = _actor.GetComponent<BoxCollisionComponent>();
+            Debug.Assert(_thisColComponent != null);
+            Debug.Assert(_otherColComponent != null);
 
-          
-            return false;
+            return _thisColComponent.GetGlobalBounds().Intersects(_otherColComponent.GetGlobalBounds());
         }
 
         public override object Clone()
