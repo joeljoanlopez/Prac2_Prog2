@@ -41,7 +41,7 @@ namespace TCGame
 
             // TODO (1.1): Add the missing components to the Main Character
             //   - CharacterControllerComponent
-
+            mainCharacterActor.AddComponent<CharacterControllerComponent>();
             // TODO (2.1): Add the missing components to the Main Character
             //   - CannonComponent
 
