@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Numerics;
+using System.Diagnostics;
 using SFML.System;
 using SFML.Window;
 using TCEngine;
@@ -47,6 +49,7 @@ namespace TCGame
                 movement.X += 1f;
             }
             Vector2f displacement = movement * MOVEMENT_SPEED * _dt;
+            displacement = Normalize(displacement);
             TransformComponent transformComponent = Owner.GetComponent<TransformComponent>();
             Debug.Assert(transformComponent != null);
             transformComponent.Transform.Position += displacement;
@@ -56,6 +59,11 @@ namespace TCGame
             //   - Pressing Space shoots the cannon of this actor (only if this actor has a CannonComponent)
 
 
+        }
+        private Vector2f Normalize(Vector2f vec)
+        {
+            float _module = (float)Math.Sqrt(Math.Pow(vec.X, 2) + Math.Pow(vec.Y, 2));
+            return _module != 0 ? vec / _module : vec;
         }
     }
 }
