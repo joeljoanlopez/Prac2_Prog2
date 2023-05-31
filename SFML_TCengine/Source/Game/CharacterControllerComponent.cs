@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using System.Diagnostics;
+using SFML.System;
 using SFML.Window;
 using TCEngine;
 
@@ -47,6 +48,7 @@ namespace TCGame
             }
             Vector2f displacement = movement * MOVEMENT_SPEED * _dt;
             TransformComponent transformComponent = Owner.GetComponent<TransformComponent>();
+            Debug.Assert(transformComponent != null);
             transformComponent.Transform.Position += displacement;
 
 
