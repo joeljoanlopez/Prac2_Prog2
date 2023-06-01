@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using SFML.System;
 using SFML.Window;
 using TCEngine;
@@ -12,6 +13,8 @@ namespace TCGame
 
         public CharacterControllerComponent()
         {
+            List<ECollisionLayers> enemyLayers = new List<ECollisionLayers>();
+            enemyLayers.Add(ECollisionLayers.Enemy);
         }
 
         public override EComponentUpdateCategory GetUpdateCategory()
