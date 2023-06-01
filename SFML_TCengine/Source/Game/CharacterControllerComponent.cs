@@ -48,8 +48,8 @@ namespace TCGame
             {
                 movement.X += 1f;
             }
+            movement = Normalize(movement);
             Vector2f displacement = movement * MOVEMENT_SPEED * _dt;
-            displacement = Normalize(displacement);
             TransformComponent transformComponent = Owner.GetComponent<TransformComponent>();
             Debug.Assert(transformComponent != null);
             transformComponent.Transform.Position += displacement;
