@@ -33,6 +33,7 @@ namespace TCGame
                 AnimatedSpriteComponent _AnimatedSpriteComponent = _Explosion.AddComponent<AnimatedSpriteComponent>("Data/Textures/FX/Explosion.png", 4, 1);
                 TimeToDieComponent _TimeToDieComponent = _Explosion.AddComponent<TimeToDieComponent>();
                 ForwardMovementComponent _ForwardMovementComponent = _Explosion.AddComponent<ForwardMovementComponent>();
+                SoundEffectComponent _SoundEffectComponent = _Explosion.AddComponent<SoundEffectComponent>();
                 TecnoCampusEngine.Get.Scene.AddActor(_Explosion);
             }
         }
