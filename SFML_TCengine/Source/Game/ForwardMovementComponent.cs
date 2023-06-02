@@ -12,6 +12,8 @@ namespace TCGame
 
     class ForwardMovementComponent : BaseComponent
     {
+        float m_Speed;
+        Vector2f m_Forward;
         public override EComponentUpdateCategory GetUpdateCategory()
         {
             return EComponentUpdateCategory.Update;
@@ -19,9 +21,9 @@ namespace TCGame
 
         public override object Clone()
         {
-            
+
             return new ForwardMovementComponent();
-            
+
         }
 
     }
