@@ -57,7 +57,7 @@ namespace TCGame
             // TODO (6.1): Implement this method. It returns true if this actor is touching the _actor passed by parameter
             BoxCollisionComponent _thisColComponent = Owner.GetComponent<BoxCollisionComponent>();
             BoxCollisionComponent _otherColComponent = _actor.GetComponent<BoxCollisionComponent>();
-            Debug.Assert(_thisColComponent != null);
+             Debug.Assert(_thisColComponent != null);
             Debug.Assert(_otherColComponent != null);
 
             return _thisColComponent.GetGlobalBounds().Intersects(_otherColComponent.GetGlobalBounds());

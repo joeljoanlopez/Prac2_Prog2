@@ -11,7 +11,7 @@ namespace TCGame
     {
 
         private const float MOVEMENT_SPEED = 200f;
-
+        private CannonComponent cannonComponent;
         public CharacterControllerComponent()
         {
         }
@@ -57,9 +57,14 @@ namespace TCGame
 
             // TODO (2.2): Implement the keyboard handling
             //   - Pressing Space shoots the cannon of this actor (only if this actor has a CannonComponent)
-
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                cannonComponent = Owner.GetComponent<CannonComponent>();
+                cannonComponent.Shoot();
+            }
 
         }
+
         private Vector2f Normalize(Vector2f vec)
         {
             float _module = (float)Math.Sqrt(Math.Pow(vec.X, 2) + Math.Pow(vec.Y, 2));

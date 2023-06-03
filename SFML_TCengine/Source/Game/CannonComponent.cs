@@ -141,9 +141,15 @@ namespace TCGame
 
                     // TODO (3): Add the needed components
                     // - ForwardMovementComponent
+                    ForwardMovementComponent forwardMovementComponent = missileActor.AddComponent<ForwardMovementComponent>();
+                    forwardMovementComponent.Speed = m_BulletSpeed;
+                    forwardMovementComponent.Forward = m_CannonDirection;
                     // - BulletComponent
+                    BulletComponent bulletComponent = missileActor.AddComponent<BulletComponent>(m_ImpactLayers);
+
                     // - OutOfWindowDestructionComponent
-                    
+                    OutOfWindowDestructionComponent destructionComponent = missileActor.AddComponent<OutOfWindowDestructionComponent>();
+
                     TecnoCampusEngine.Get.Scene.AddActor(missileActor);
 
                 }
@@ -173,6 +179,9 @@ namespace TCGame
             clonedComponent.AutomaticFire = m_AutomaticFire;
             clonedComponent.BulletTextureName = m_BulletTextureName;
             clonedComponent.BulletsPerShot = m_BulletsPerShot;
+            clonedComponent.BulletSpeed = m_BulletSpeed;
+            clonedComponent.MultipleBulletsOffset = m_MultipleBulletsOffset;
+            clonedComponent.ForwardBulletOffset = m_ForwardBulletOffset;
             return clonedComponent;
         }
     }

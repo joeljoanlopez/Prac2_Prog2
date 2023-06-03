@@ -44,7 +44,10 @@ namespace TCGame
             mainCharacterActor.AddComponent<CharacterControllerComponent>();
             // TODO (2.1): Add the missing components to the Main Character
             //   - CannonComponent
-            mainCharacterActor.AddComponent<CannonComponent>(enemyLayers);
+            CannonComponent cannonComponent = mainCharacterActor.AddComponent<CannonComponent>(enemyLayers);
+
+
+
             TecnoCampusEngine.Get.Scene.AddActor(mainCharacterActor);
 
         }

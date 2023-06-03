@@ -12,18 +12,37 @@ namespace TCGame
 
     class ForwardMovementComponent : BaseComponent
     {
-        float m_Speed;
-        Vector2f m_Forward;
+        private float m_Speed;
+        private Vector2f m_Forward;
+        public float Speed
+        {
+            get { return m_Speed; }
+            set { m_Speed = value; }
+        }
+        public Vector2f Forward
+        {
+            get { return m_Forward; }
+            set { m_Forward = value; }
+        }
         public override EComponentUpdateCategory GetUpdateCategory()
         {
             return EComponentUpdateCategory.Update;
         }
-
+        public override void Update(float deltaTime)
+        {
+            TransformComponent transformComponent = Owner.GetComponent<TransformComponent>();
+            if (transformComponent != null)
+            {
+                Vector2f newPosition = transformComponent.Transform.Position + m_Forward * m_Speed * deltaTime;
+                transformComponent.Transform.Position = newPosition;
+            }
+        }
         public override object Clone()
         {
-
-            return new ForwardMovementComponent();
-
+            ForwardMovementComponent clonedComponent = new ForwardMovementComponent();
+            clonedComponent.Speed = m_Speed;
+            clonedComponent.Forward = m_Forward;
+            return clonedComponent;
         }
 
     }
