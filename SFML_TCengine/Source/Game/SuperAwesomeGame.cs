@@ -61,8 +61,8 @@ namespace TCGame
             // TODO (5.1): Fix the spawn position for the tanks
             //    - They should spawn on the right side of the window
 
-            spawnerComponent.m_MinPosition = new Vector2f(0, -100);
-            spawnerComponent.m_MaxPosition = new Vector2f(TecnoCampusEngine.Get.ViewportSize.X, -100);
+            spawnerComponent.m_MinPosition = new Vector2f(0, -10);
+            spawnerComponent.m_MaxPosition = new Vector2f(TecnoCampusEngine.Get.ViewportSize.X, -10);
             spawnerComponent.m_MinTime = 0.5f;
             spawnerComponent.m_MaxTime = 5f;
             spawnerComponent.Reset();
@@ -76,13 +76,13 @@ namespace TCGame
                 ActorPrefab tankPrefab = new ActorPrefab("Tank0" + i);
                 SpriteComponent spriteComponent = tankPrefab.AddComponent<SpriteComponent>("Data/Textures/Enemies/Tank0" + i + ".png");
                 spriteComponent.m_RenderLayer = RenderComponent.ERenderLayer.Back;
-                tankPrefab.AddComponent<TransformComponent>();
+                TransformComponent tankTransform = tankPrefab.AddComponent<TransformComponent>();
 
                 // TODO (5.2): Add the Missing components to the Tank Prefab
                 //   - ForwardMovementComponent
                 //   - CannonComponent (remember to use the correct texture and enable Autofire)
-                tankPrefab.AddComponent<ForwardMovementComponent>();
-                CannonComponent _cannonComponent = tankPrefab.AddComponent<CannonComponent>(tankEnemyLayers);
+                ForwardMovementComponent _tankForward = tankPrefab.AddComponent<ForwardMovementComponent>(50, new Vector2f(0f, 1f));
+                CannonComponent _cannonComponent = tankPrefab.AddComponent<CannonComponent>(tankEnemyLayers, _tankForward.Forward);
                 _cannonComponent.AutomaticFire = true;
                 _cannonComponent.BulletTextureName = "Data/Textures/Bullets/TankBullet.png";
 

@@ -31,9 +31,8 @@ namespace TCGame
                 Actor _Explosion = new Actor("Explosion");
                 TransformComponent _TransformComponent = _Explosion.AddComponent<TransformComponent>();
                 AnimatedSpriteComponent _AnimatedSpriteComponent = _Explosion.AddComponent<AnimatedSpriteComponent>("Data/Textures/FX/Explosion.png", 4, 1);
-                TimeToDieComponent _TimeToDieComponent = _Explosion.AddComponent<TimeToDieComponent>();
-                ForwardMovementComponent _ForwardMovementComponent = _Explosion.AddComponent<ForwardMovementComponent>();
-                SoundEffectComponent _SoundEffectComponent = _Explosion.AddComponent<SoundEffectComponent>();
+                TimeToDieComponent _TimeToDieComponent = _Explosion.AddComponent<TimeToDieComponent>(_AnimatedSpriteComponent.animationTime);
+                SoundEffectComponent _SoundEffectComponent = _Explosion.AddComponent<SoundEffectComponent>("Data/Sounds/explosion.ogg");
                 TecnoCampusEngine.Get.Scene.AddActor(_Explosion);
             }
         }

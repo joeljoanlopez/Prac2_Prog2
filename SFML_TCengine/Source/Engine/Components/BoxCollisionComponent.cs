@@ -11,7 +11,8 @@ namespace TCEngine
     {
         Player,
         Enemy,
-        Person
+        Person,
+        Bullet
     }
 
     public class BoxCollisionComponent: BaseComponent
