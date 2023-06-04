@@ -176,9 +176,6 @@ namespace TCGame
             clonedComponent.AutomaticFire = m_AutomaticFire;
             clonedComponent.BulletTextureName = m_BulletTextureName;
             clonedComponent.BulletsPerShot = m_BulletsPerShot;
-            clonedComponent.BulletSpeed = m_BulletSpeed;
-            clonedComponent.MultipleBulletsOffset = m_MultipleBulletsOffset;
-            clonedComponent.ForwardBulletOffset = m_ForwardBulletOffset;
             return clonedComponent;
         }
     }
