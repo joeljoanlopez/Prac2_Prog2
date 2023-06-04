@@ -11,9 +11,9 @@ namespace TCGame
         private const float DEFAULT_FIRE_RATE = 0.3f;
         private const float DEFAULT_BULLET_SPEED = 200.0f;
         private const int DEFAULT_BULLETS_PER_SHOT = 1;
-        private const float DEFAULT_MULTIPLE_BULLETS_OFFSET= 2.0f;
+        private const float DEFAULT_MULTIPLE_BULLETS_OFFSET = 2.0f;
         private const float DEFAULT_FORWARD_BULLET_OFFSET = 50.0f;
-        
+
 
         private List<ECollisionLayers> m_ImpactLayers;
         private Vector2f m_CannonDirection;
@@ -36,7 +36,7 @@ namespace TCGame
         public List<ECollisionLayers> ImpactLayers
         {
             get => m_ImpactLayers;
-            set => m_ImpactLayers= value;
+            set => m_ImpactLayers = value;
         }
 
         public bool AutomaticFire
@@ -112,12 +112,12 @@ namespace TCGame
         {
             base.Update(_dt);
 
-            if( m_AutomaticFire)
+            if (m_AutomaticFire)
             {
                 m_TimeToShoot -= _dt;
                 Shoot();
             }
-            else if(m_TimeToShoot > 0.0f)
+            else if (m_TimeToShoot > 0.0f)
             {
                 m_TimeToShoot -= _dt;
             }
@@ -141,12 +141,9 @@ namespace TCGame
 
                     // TODO (3): Add the needed components
                     // - ForwardMovementComponent
-                    ForwardMovementComponent forwardMovementComponent = missileActor.AddComponent<ForwardMovementComponent>();
-                    forwardMovementComponent.Speed = m_BulletSpeed;
-                    forwardMovementComponent.Forward = m_CannonDirection;
+                    ForwardMovementComponent forwardMovementComponent = missileActor.AddComponent<ForwardMovementComponent>(m_BulletSpeed, m_CannonDirection);
                     // - BulletComponent
                     BulletComponent bulletComponent = missileActor.AddComponent<BulletComponent>(m_ImpactLayers);
-
                     // - OutOfWindowDestructionComponent
                     OutOfWindowDestructionComponent destructionComponent = missileActor.AddComponent<OutOfWindowDestructionComponent>();
 

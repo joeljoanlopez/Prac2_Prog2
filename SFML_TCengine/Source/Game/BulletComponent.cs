@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System.Numerics;
+using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -36,7 +37,7 @@ namespace TCGame
             base.Update(_dt);
 
             List<BoxCollisionComponent> collisionLayerComponents = TecnoCampusEngine.Get.Scene.GetAllComponents<BoxCollisionComponent>();
-            foreach(BoxCollisionComponent collisionLayerComponent in collisionLayerComponents)
+            foreach (BoxCollisionComponent collisionLayerComponent in collisionLayerComponents)
             {
                 ECollisionLayers layer = collisionLayerComponent.Layer;
                 if (m_ImpactLayers.Contains(layer))
@@ -44,8 +45,8 @@ namespace TCGame
                     if (IsActorInRange(collisionLayerComponent.Owner))
                     {
                         // TODO (6.2): Destroy both actors, the bullet actor and the collision layer actor
-                        TecnoCampusEngine.Get.Scene.RemoveActor(Owner);
-                        TecnoCampusEngine.Get.Scene.RemoveActor(collisionLayerComponent.Owner);
+                        Owner.Destroy();
+                        collisionLayerComponent.Owner.Destroy();
                     }
                 }
             }
@@ -55,12 +56,26 @@ namespace TCGame
         {
 
             // TODO (6.1): Implement this method. It returns true if this actor is touching the _actor passed by parameter
-            BoxCollisionComponent _thisColComponent = Owner.GetComponent<BoxCollisionComponent>();
-            BoxCollisionComponent _otherColComponent = _actor.GetComponent<BoxCollisionComponent>();
-             Debug.Assert(_thisColComponent != null);
-            Debug.Assert(_otherColComponent != null);
+            SpriteComponent thisCollision = Owner.GetComponent<SpriteComponent>();
+            Transformable thisPosition = Owner.GetComponent<TransformComponent>().Transform;
+            Debug.Assert(thisCollision != null);
+            FloatRect thisRectangle = thisCollision.GetGlobalbounds();
+            thisRectangle.Left = thisPosition.Position.X - thisPosition.Origin.X;
+            thisRectangle.Top = thisPosition.Position.Y - thisPosition.Origin.Y;
 
-            return _thisColComponent.GetGlobalBounds().Intersects(_otherColComponent.GetGlobalBounds());
+            BoxCollisionComponent otherCollision = _actor.GetComponent<BoxCollisionComponent>();
+            Transformable otherPosition = _actor.GetComponent<TransformComponent>().Transform;
+            Debug.Assert(otherCollision != null);
+            FloatRect otherRectangle = _actor.GetComponent<BoxCollisionComponent>().GetGlobalBounds();
+            otherRectangle.Left = otherPosition.Position.X - thisPosition.Origin.X;
+            otherRectangle.Top = otherPosition.Position.Y - thisPosition.Origin.Y;
+
+            return thisRectangle.Intersects(otherRectangle);
+
+            // Debug.Assert(_otherColComponent != null);
+            // if (_thisCollision.GetGlobalbounds().Intersects(_otherColComponent.GetGlobalBounds()) && ! Owner.Equals(_actor)) 
+            //     intersects = true;
+            // return intersects;
         }
 
         public override object Clone()

@@ -60,6 +60,7 @@ namespace TCGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
                 cannonComponent = Owner.GetComponent<CannonComponent>();
+                Debug.Assert(cannonComponent != null);
                 cannonComponent.Shoot();
             }
 

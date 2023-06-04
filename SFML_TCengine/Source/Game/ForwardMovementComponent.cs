@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using System;
+using SFML.System;
 using System.Diagnostics;
 using TCEngine;
 
@@ -24,6 +25,14 @@ namespace TCGame
             get { return m_Forward; }
             set { m_Forward = value; }
         }
+
+        public ForwardMovementComponent(float speed, Vector2f fw)
+        {
+            m_Speed = speed;
+            m_Forward = fw;
+
+        }
+
         public override EComponentUpdateCategory GetUpdateCategory()
         {
             return EComponentUpdateCategory.Update;
@@ -33,15 +42,12 @@ namespace TCGame
             TransformComponent transformComponent = Owner.GetComponent<TransformComponent>();
             if (transformComponent != null)
             {
-                Vector2f newPosition = transformComponent.Transform.Position + m_Forward * m_Speed * deltaTime;
-                transformComponent.Transform.Position = newPosition;
+                transformComponent.Transform.Position += m_Forward * m_Speed * deltaTime;
             }
         }
         public override object Clone()
         {
-            ForwardMovementComponent clonedComponent = new ForwardMovementComponent();
-            clonedComponent.Speed = m_Speed;
-            clonedComponent.Forward = m_Forward;
+            ForwardMovementComponent clonedComponent = new ForwardMovementComponent(m_Speed, m_Forward);
             return clonedComponent;
         }
 
