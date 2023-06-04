@@ -88,7 +88,7 @@ namespace TCGame
 
                 tankPrefab.AddComponent<OutOfWindowDestructionComponent>();
                 tankPrefab.AddComponent<BoxCollisionComponent>(spriteComponent.GetGlobalbounds(), ECollisionLayers.Enemy);
-                tankPrefab.AddComponent<ExplosionComponent>();
+                tankPrefab.AddComponent<ExplosionComponent>(tankTransform.Transform.Position);
 
                 spawnerComponent.AddActorPrefab(tankPrefab);
             }

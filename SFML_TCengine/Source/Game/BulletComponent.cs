@@ -60,22 +60,17 @@ namespace TCGame
             Transformable thisPosition = Owner.GetComponent<TransformComponent>().Transform;
             Debug.Assert(thisCollision != null);
             FloatRect thisRectangle = thisCollision.GetGlobalbounds();
-            thisRectangle.Left = thisPosition.Position.X - thisPosition.Origin.X;
-            thisRectangle.Top = thisPosition.Position.Y - thisPosition.Origin.Y;
+            thisRectangle.Left = thisPosition.Position.X - thisRectangle.Width/2;
+            thisRectangle.Top = thisPosition.Position.Y - thisRectangle.Height/2;
 
             BoxCollisionComponent otherCollision = _actor.GetComponent<BoxCollisionComponent>();
             Transformable otherPosition = _actor.GetComponent<TransformComponent>().Transform;
             Debug.Assert(otherCollision != null);
             FloatRect otherRectangle = _actor.GetComponent<BoxCollisionComponent>().GetGlobalBounds();
-            otherRectangle.Left = otherPosition.Position.X - thisPosition.Origin.X;
-            otherRectangle.Top = otherPosition.Position.Y - thisPosition.Origin.Y;
+            otherRectangle.Left = otherPosition.Position.X - otherRectangle.Width/2;
+            otherRectangle.Top = otherPosition.Position.Y - otherRectangle.Height/2;
 
             return thisRectangle.Intersects(otherRectangle);
-
-            // Debug.Assert(_otherColComponent != null);
-            // if (_thisCollision.GetGlobalbounds().Intersects(_otherColComponent.GetGlobalBounds()) && ! Owner.Equals(_actor)) 
-            //     intersects = true;
-            // return intersects;
         }
 
         public override object Clone()

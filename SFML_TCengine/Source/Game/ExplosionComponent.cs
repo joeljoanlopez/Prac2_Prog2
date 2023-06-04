@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using SFML.Graphics;
+using SFML.System;
 using TCEngine;
 
 namespace TCGame
@@ -7,14 +8,16 @@ namespace TCGame
     {
 
         private bool m_DisableExplosion = false;
+        private Vector2f _position;
 
         public bool DisableExplosion
         {
             set => m_DisableExplosion = value;
         }
 
-        public ExplosionComponent()
+        public ExplosionComponent(Vector2f pos)
         {
+            _position = pos;
         }
 
         public override void OnActorDestroyed()
@@ -30,6 +33,11 @@ namespace TCGame
                 //  - ForwardMovementComponent (optional) -> You can add it if you want, to add a very subtle movement
                 Actor _Explosion = new Actor("Explosion");
                 TransformComponent _TransformComponent = _Explosion.AddComponent<TransformComponent>();
+                BoxCollisionComponent boxCollisionComponent = Owner.GetComponent<BoxCollisionComponent>();
+
+                Vector2f offset = new Vector2f(boxCollisionComponent.GetGlobalBounds().Height, boxCollisionComponent.GetGlobalBounds().Width)/2;
+                _TransformComponent.Transform.Position = Owner.GetComponent<TransformComponent>().Transform.Position - offset;
+                
                 AnimatedSpriteComponent _AnimatedSpriteComponent = _Explosion.AddComponent<AnimatedSpriteComponent>("Data/Textures/FX/Explosion.png", 4, 1);
                 TimeToDieComponent _TimeToDieComponent = _Explosion.AddComponent<TimeToDieComponent>(_AnimatedSpriteComponent.animationTime);
                 SoundEffectComponent _SoundEffectComponent = _Explosion.AddComponent<SoundEffectComponent>("Data/Sounds/explosion.ogg");
@@ -44,7 +52,7 @@ namespace TCGame
 
         public override object Clone()
         {
-            return new ExplosionComponent();
+            return new ExplosionComponent(_position);
         }
     }
 }
